@@ -3,11 +3,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "ViewProfileServlet", urlPatterns = "/profile")
 public class ViewProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/profile.jsp").forward(request, response);
+//        request.getRequestDispatcher("/profile.jsp").forward(request, response);
+//        Ensure that users can only visit the /profile page if they are logged in
+        HttpSession session = request.getSession();
+        String username = (String) request.getSession().getAttribute("username");
+        if (session.getAttribute("isAdmin") == null || (Boolean) session.getAttribute("isAdmin") == false) {
+            response.sendRedirect("/login");
+            return;
+        }
+            request.getRequestDispatcher("/profile.jsp").forward(request, response);
     }
 }
