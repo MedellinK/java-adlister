@@ -8,9 +8,9 @@
 <body>
 <h1>Ads</h1>
 <c:forEach var="ad" items="${ads}">
-    <p>${ad.id}</p>
-    <p>${ad.userId}</p>
-    <p>${ad.title}</p>
+<%--    <p>${ad.id}</p>--%>
+<%--    <p>${ad.userId}</p>--%>
+    <h3>${ad.title}</h3>
     <p>${ad.description}</p>
 </c:forEach>
 
